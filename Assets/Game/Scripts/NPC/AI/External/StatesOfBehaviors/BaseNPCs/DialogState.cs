@@ -15,17 +15,17 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
         public DialogState(HSMStateMachine machine, NPCContext context, HSMState parent = null) : base(machine, parent)
         {
             _context = context;
-            Debug.Log(_context != null);
-            Debug.Log(_dialogBox != null);
         }
         
         protected override void OnEnter()
         {
             Debug.Log("Entered DialogState");
             _context.IsIdle = false;
-            Debug.Log(_context != null);
-            Debug.Log(_dialogBox != null);
-            Debug.Log(_context.Dialog != null);
+            _context.Dialog.OnDialogStarted(() =>
+            {
+                _context.IsDialog = false;
+                _context.IsIdle = true;
+            });
             _dialogBox.StartDialog(_context.Dialog.GetDialogOptions());
         }
     }

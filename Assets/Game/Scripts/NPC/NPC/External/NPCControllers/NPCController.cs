@@ -36,15 +36,17 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
         
         public void Init()
         {
+            Debug.Log("Initializing NPC Controller");
             InitServices();
-            InitNPCCharacter();
             InitDialogs();
+            InitNPCCharacter();
             InitHSMNPC();
         }
 
         public void Interact()
         {
-            _dialogController.OnDialogStarted();
+            _npcContext.IsDialog = true; //мб отдельный стейт для интеракции сделать?
+            //_dialogController.OnDialogStarted(); 
         }
 
         private void InitServices()
@@ -69,7 +71,7 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
             if (_npcContext == null)
             {
                 //_npcContext = _npcContextCreator.NPCContextCreat(_currentPersonality, _navMeshAgent);
-                _npcContext = new NPCContext(_navMeshAgent, _currentPersonality, _dialogController); //угар 1
+                _npcContext = new NPCContext(_navMeshAgent, _currentPersonality, _dialogController);
             }
 
             _npcContext.IsIdle = true;
@@ -79,7 +81,18 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
         {
             if (_dialogController == null)
             {
-                _dialogController = new NPCDialogController(_npcContext); //угар 2
+                _dialogController = new NPCDialogController();
+                //Временно! логика следования здесь 
+                _dialogController.AddDialogOption(new DialogOption("Follow me", () =>
+                {
+                    _npcContext.IsDialog = false;
+                    _npcContext.IsFollowing = true;
+                }));
+                _dialogController.AddDialogOption(new DialogOption("Stop", () =>
+                {
+                    _npcContext.IsDialog = false;
+                    _npcContext.IsFollowing = false;
+                }));
             }
         }
 

@@ -42,6 +42,8 @@ namespace Game.Scripts.Player.External.DialogBox
                     option.OnSelected?.Invoke();
                     onOptionSelected?.Invoke();
                 });
+                
+                button.gameObject.SetActive(true);
             }
             
             ShowDialogPanel();
@@ -50,7 +52,7 @@ namespace Game.Scripts.Player.External.DialogBox
         /// <summary>
         /// Показать диалоговое окно с вариантами
         /// </summary>
-        public void ShowExitButton(DialogOption option, Action onOptionSelected) //а нафиг оно отдельно?
+        public void ShowExitButton(DialogOption option, Action onOptionSelected)
         {
             var button = _buttonPool.Get();
             

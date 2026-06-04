@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Scripts.NPC.RunTime.NPCPersonalityCreator
@@ -6,6 +7,7 @@ namespace Game.Scripts.NPC.RunTime.NPCPersonalityCreator
     /// Персональность НПС, определяющая его поведение
     /// </summary>
     [CreateAssetMenu(fileName = "NPCPersonality", menuName = "AI/NPC Personality")]
+    [Serializable]
     public class NPCPersonalitySO : ScriptableObject
     {
         [Range(0f, 1f)]
