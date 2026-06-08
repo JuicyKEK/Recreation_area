@@ -19,7 +19,7 @@ namespace Game.Scripts.NPC.HSMBase.ActionWithExpectation
         }
 
         protected override HSMState GetInitialState() => MoveToAction;
-        protected override HSMState GetTransition() => _context.InProgress ? ActionWithTimer : null; 
+        protected override HSMState GetTransition() => _context.CurrentState == NPCStates.InProgress ? ActionWithTimer : null; 
         //стоит переделать под дошел ли нпс
     }
 }

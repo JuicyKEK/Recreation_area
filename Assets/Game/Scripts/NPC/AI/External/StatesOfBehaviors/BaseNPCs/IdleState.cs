@@ -18,6 +18,7 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
             _context.Agent.isStopped = true;
             Debug.Log("Entered IdleState");
             //TODO: Запуск анимации idle
+            //TODO: Запихать сюда выбор дальнейших действий
         }
     }
 }

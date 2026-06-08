@@ -20,6 +20,7 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
         [SerializeField] private NPCPersonalitySO _fixedPersonalitySO;
         [Header("AIComponents")]
         [SerializeField] private NavMeshAgent _navMeshAgent;
+        [SerializeField] private Transform _playerTransform; //Для теста
         
         private NPCPersonality _currentPersonality;
         private NPCContext _npcContext;
@@ -36,15 +37,18 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
         
         public void Init()
         {
+            Debug.Log("Initializing NPC Controller");
             InitServices();
-            InitNPCCharacter();
             InitDialogs();
+            InitNPCCharacter();
             InitHSMNPC();
         }
 
         public void Interact()
         {
-            _dialogController.OnDialogStarted();
+            _npcContext.PreviousState = _npcContext.CurrentState; //мб отдельный стейт для интеракции сделать?
+            _npcContext.CurrentState = NPCStates.IsDialog; //мб отдельный стейт для интеракции сделать?
+            //_dialogController.OnDialogStarted(); 
         }
 
         private void InitServices()
@@ -69,17 +73,28 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
             if (_npcContext == null)
             {
                 //_npcContext = _npcContextCreator.NPCContextCreat(_currentPersonality, _navMeshAgent);
-                _npcContext = new NPCContext(_navMeshAgent, _currentPersonality, _dialogController); //угар 1
+                _npcContext = new NPCContext(_navMeshAgent, _currentPersonality, _dialogController);
             }
 
-            _npcContext.IsIdle = true;
+            _npcContext.CurrentState = NPCStates.IsIdle;
         }
         
         private void InitDialogs()
         {
             if (_dialogController == null)
             {
-                _dialogController = new NPCDialogController(_npcContext); //угар 2
+                _dialogController = new NPCDialogController();
+                //Временно! логика следования здесь 
+                _dialogController.AddDialogOption(new DialogOption("Follow me", () =>
+                {
+                    _npcContext.TargetObject = _playerTransform;
+                    _npcContext.CurrentState = NPCStates.IsFollowing;
+                }));
+                _dialogController.AddDialogOption(new DialogOption("Stop", () =>
+                {
+                    _npcContext.TargetObject = null;
+                    _npcContext.CurrentState = NPCStates.IsIdle;
+                }));
             }
         }
 

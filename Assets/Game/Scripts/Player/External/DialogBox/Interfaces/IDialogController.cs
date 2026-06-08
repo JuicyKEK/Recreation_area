@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Game.Scripts.Player.External.DialogBox.Interfaces
@@ -15,7 +16,7 @@ namespace Game.Scripts.Player.External.DialogBox.Interfaces
         /// <summary>
         /// Вызывается при начале диалога
         /// </summary>
-        public void OnDialogStarted();
+        public void OnDialogStarted(Action callback);
         
         /// <summary>
         /// Вызывается при завершении диалога

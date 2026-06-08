@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Scripts.NPC.AI.External.NPC;
 using Game.Scripts.Player.External.DialogBox.Interfaces;
@@ -5,17 +6,11 @@ using UnityEngine;
 
 namespace Game.Scripts.Player.External.DialogBox
 {
-    public class NPCDialogController : IDialogController //кто будет создавать диалоги? Надо ж в него экшен передавать
+    public class NPCDialogController : IDialogController 
     {
         private string _npcName = "NPC"; 
         private List<DialogOption> _dialogOptions = new List<DialogOption>();
-        private NPCContext _context;
-
-        public NPCDialogController(NPCContext context)
-        {
-            _context = context;
-            SetDefaultDialog();
-        }
+        private bool _isDefaultDialogCreated = false;
         
         /// <summary>
         /// Добавить вариант диалога
@@ -38,6 +33,7 @@ namespace Game.Scripts.Player.External.DialogBox
         /// </summary>
         public void ClearDialogOptions()
         {
+            _isDefaultDialogCreated = false;
             _dialogOptions.Clear();
         }
 
@@ -46,20 +42,28 @@ namespace Game.Scripts.Player.External.DialogBox
             return _dialogOptions;
         }
 
-        public void OnDialogStarted()
+        public void OnDialogStarted(Action callback)
         {
-            _context.IsDialog = true;
-            //StartDialog(_dialogOptions);
+            if (!_isDefaultDialogCreated)
+            {
+                SetDefaultDialog(callback);
+            }
         }
 
         public void OnDialogEnded()
         {
-            _context.IsDialog = false;
+
         }
 
-        private void SetDefaultDialog()
+        private void SetDefaultDialog(Action callback)
         {
-            AddDialogOption(new DialogOption("Close", OnDialogEnded));
+            _isDefaultDialogCreated = true;
+            
+            AddDialogOption(new DialogOption("Close", () =>
+            {
+                OnDialogEnded();
+                callback?.Invoke();
+            }));
         }
     }
 }

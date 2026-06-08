@@ -7,19 +7,13 @@ using UnityEngine.AI;
 namespace Game.Scripts.NPC.AI.External.NPC
 {
     [Serializable]
-    public class NPCContext //Надо закрыть его будет
+    public class NPCContext //Надо закрыть его будет и сделать через интерфейс
     {
         public Vector3 Move; //?
         public Vector3 Velocity; //?
         public bool IsAlive;
-        public bool InDanger;
-        public bool IsDialog;
-        public bool IsFollowing;
-        public bool IsIdle;
-        public bool IsSleeping;
-        public bool IsDeepSleeping;
-        public bool InProgressQueue;
-        public bool InProgress;
+        public NPCStates CurrentState = NPCStates.IsIdle;
+        public NPCStates PreviousState = NPCStates.IsIdle;
         public float PercentageProgress;
         public float HPLevel;
         public float LevelTrustPlayer;

@@ -1,5 +1,6 @@
 using Game.Scripts.NPC.AI.External.NPC;
 using Game.Scripts.NPC.HSMBase;
+using UnityEngine;
 
 namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
 {
@@ -14,6 +15,7 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
         
         protected override void OnEnter()
         {
+            Debug.Log("Entered SleepingState");
             // Логика сна
         }
     }
