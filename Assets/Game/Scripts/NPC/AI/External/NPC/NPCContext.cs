@@ -12,14 +12,8 @@ namespace Game.Scripts.NPC.AI.External.NPC
         public Vector3 Move; //?
         public Vector3 Velocity; //?
         public bool IsAlive;
-        public bool InDanger;
-        public bool IsDialog;
-        public bool IsFollowing;
-        public bool IsIdle;
-        public bool IsSleeping;
-        public bool IsDeepSleeping;
-        public bool InProgressQueue;
-        public bool InProgress;
+        public NPCStates CurrentState = NPCStates.IsIdle;
+        public NPCStates PreviousState = NPCStates.IsIdle;
         public float PercentageProgress;
         public float HPLevel;
         public float LevelTrustPlayer;

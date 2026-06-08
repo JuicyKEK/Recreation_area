@@ -22,7 +22,7 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
         protected override HSMState GetInitialState() => _combatHitState;
         protected override HSMState GetTransition()
         {
-            if (!_context.InDanger)
+            if (_context.CurrentState != NPCStates.InDanger)
             {
                 return Parent;
             }

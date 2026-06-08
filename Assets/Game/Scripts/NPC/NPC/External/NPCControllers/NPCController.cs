@@ -20,6 +20,7 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
         [SerializeField] private NPCPersonalitySO _fixedPersonalitySO;
         [Header("AIComponents")]
         [SerializeField] private NavMeshAgent _navMeshAgent;
+        [SerializeField] private Transform _playerTransform; //Для теста
         
         private NPCPersonality _currentPersonality;
         private NPCContext _npcContext;
@@ -45,7 +46,8 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
 
         public void Interact()
         {
-            _npcContext.IsDialog = true; //мб отдельный стейт для интеракции сделать?
+            _npcContext.PreviousState = _npcContext.CurrentState; //мб отдельный стейт для интеракции сделать?
+            _npcContext.CurrentState = NPCStates.IsDialog; //мб отдельный стейт для интеракции сделать?
             //_dialogController.OnDialogStarted(); 
         }
 
@@ -74,7 +76,7 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
                 _npcContext = new NPCContext(_navMeshAgent, _currentPersonality, _dialogController);
             }
 
-            _npcContext.IsIdle = true;
+            _npcContext.CurrentState = NPCStates.IsIdle;
         }
         
         private void InitDialogs()
@@ -85,13 +87,13 @@ namespace Game.Scripts.NPC.NPC.External.Conntrollers
                 //Временно! логика следования здесь 
                 _dialogController.AddDialogOption(new DialogOption("Follow me", () =>
                 {
-                    _npcContext.IsDialog = false;
-                    _npcContext.IsFollowing = true;
+                    _npcContext.TargetObject = _playerTransform;
+                    _npcContext.CurrentState = NPCStates.IsFollowing;
                 }));
                 _dialogController.AddDialogOption(new DialogOption("Stop", () =>
                 {
-                    _npcContext.IsDialog = false;
-                    _npcContext.IsFollowing = false;
+                    _npcContext.TargetObject = null;
+                    _npcContext.CurrentState = NPCStates.IsIdle;
                 }));
             }
         }

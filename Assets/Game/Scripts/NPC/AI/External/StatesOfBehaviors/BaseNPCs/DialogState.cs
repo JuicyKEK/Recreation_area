@@ -20,11 +20,9 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
         protected override void OnEnter()
         {
             Debug.Log("Entered DialogState");
-            _context.IsIdle = false;
             _context.Dialog.OnDialogStarted(() =>
             {
-                _context.IsDialog = false;
-                _context.IsIdle = true;
+                _context.CurrentState = _context.PreviousState;
             });
             _dialogBox.StartDialog(_context.Dialog.GetDialogOptions());
         }

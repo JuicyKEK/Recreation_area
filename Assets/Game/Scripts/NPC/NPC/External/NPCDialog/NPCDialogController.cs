@@ -39,15 +39,11 @@ namespace Game.Scripts.Player.External.DialogBox
 
         public IReadOnlyList<DialogOption> GetDialogOptions()
         {
-            Debug.Log("__________________");
-            Debug.Log(_dialogOptions.Count);
             return _dialogOptions;
         }
 
         public void OnDialogStarted(Action callback)
         {
-            //_context.IsDialog = true;
-            //StartDialog(_dialogOptions);
             if (!_isDefaultDialogCreated)
             {
                 SetDefaultDialog(callback);
@@ -56,12 +52,11 @@ namespace Game.Scripts.Player.External.DialogBox
 
         public void OnDialogEnded()
         {
-            //_context.IsDialog = false;
+
         }
 
         private void SetDefaultDialog(Action callback)
         {
-            Debug.Log("________SetDefaultDialog__________");
             _isDefaultDialogCreated = true;
             
             AddDialogOption(new DialogOption("Close", () =>

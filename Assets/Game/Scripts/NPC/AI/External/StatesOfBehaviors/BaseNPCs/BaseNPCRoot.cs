@@ -44,30 +44,30 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
         
         protected override HSMState GetTransition()
         {
-            if (_context.IsDialog && DialogBaseState != CurrentState)
+            if (_context.CurrentState == NPCStates.IsDialog && DialogBaseState != CurrentState)
             {
                 CurrentState = DialogBaseState;
                 return DialogBaseState;
             }
             
-            if (_context.IsIdle && IdleBaseState != CurrentState)
+            if (_context.CurrentState == NPCStates.IsIdle && IdleBaseState != CurrentState)
             {
                 CurrentState = IdleBaseState;
                 return IdleBaseState;
             }
             
-            if (_context.IsFollowing && FollowingBaseState != CurrentState)
+            if (_context.CurrentState == NPCStates.IsFollowing && FollowingBaseState != CurrentState)
             {
                 CurrentState = FollowingBaseState;
                 return FollowingBaseState;
             }
             
-            if (_context.InDanger)
+            if (_context.CurrentState == NPCStates.InDanger)
             {
                 return CombatBaseState;
             }
 
-            if (_context.IsSleeping)
+            if (_context.CurrentState == NPCStates.IsSleeping)
             {
                 return SleepingBaseState;
             }

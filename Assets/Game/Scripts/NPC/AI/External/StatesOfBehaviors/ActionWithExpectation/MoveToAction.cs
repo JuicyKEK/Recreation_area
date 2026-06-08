@@ -24,12 +24,12 @@ namespace Game.Scripts.NPC.HSMBase.ActionWithExpectation
             if (_context.Agent.remainingDistance <= _context.Personality.ArmLength)
             {
                 _context.Agent.isStopped = true;
-                _context.InProgress = true;
+                _context.CurrentState = NPCStates.InProgress;
                 GetTransition();
             }
         }
 
-        protected override HSMState GetTransition() => _context.InProgress ? 
+        protected override HSMState GetTransition() => _context.CurrentState == NPCStates.InProgress ? 
             ((ActionWithTimerRoot)Parent).ActionWithTimer : null;
         //стоит переделать под дошел ли нпс
     }

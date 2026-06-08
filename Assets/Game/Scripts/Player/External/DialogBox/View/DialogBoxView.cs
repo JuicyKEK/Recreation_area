@@ -35,6 +35,7 @@ namespace Game.Scripts.Player.External.DialogBox
             for (int i = 0; i < options.Count; i++)
             {
                 var button = _buttonPool.Get();
+                button.transform.SetAsLastSibling();
                 var option = options[i];
                 
                 button.Init(option.Text, () =>

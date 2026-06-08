@@ -86,8 +86,7 @@ namespace Game.Scripts.NPC.AI.External.StatesOfBehaviors.BaseNPCs
         {
             if (_context?.Agent != null)
             {
-                _context.IsFollowing = false;
-                _context.IsIdle = true;
+                _context.CurrentState = NPCStates.IsIdle;
                 _context.Agent.isStopped = true;
                 _context.Agent.ResetPath();
             }

@@ -811,6 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fixedPersonalitySO: {fileID: 11400000, guid: b08886bbf7d33a843b00bf26722177a9, type: 2}
   _navMeshAgent: {fileID: 697314332}
+  _playerTransform: {fileID: 943110772}
 --- !u!4 &734582376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1556294551308472101, guid: 22c312d108f818849a89186b4115d474, type: 3}
@@ -937,6 +938,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!4 &943110772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1335158418675132572, guid: 22c312d108f818849a89186b4115d474, type: 3}
+  m_PrefabInstance: {fileID: 1705005428942780086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1026240843
 GameObject:
   m_ObjectHideFlags: 0
